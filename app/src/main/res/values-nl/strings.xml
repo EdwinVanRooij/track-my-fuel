@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TrackMijnBrandstof</string>
+    <string name="add">Toevoegen</string>
+    <string name="from">Van...</string>
+    <string name="to">Naar...</string>
+    <string name="total">Totaal...</string>
+    <string name="km">km</string>
+    <string name="records">Ritten</string>
+</resources>

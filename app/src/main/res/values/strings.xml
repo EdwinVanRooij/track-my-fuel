@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TrackMyFuel</string>
+    <string name="total">Total...</string>
+    <string name="to">To...</string>
+    <string name="from">From...</string>
+    <string name="add">Add</string>
+    <string name="km">km</string>
+    <string name="records">Records</string>
 </resources>
