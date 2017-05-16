@@ -45,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
         initListView();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
     private void initListView() {
         ArrayList<Record> data = new ArrayList<>();
         adapter = new RecordAdapter(this, data);

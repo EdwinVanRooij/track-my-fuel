@@ -20,8 +20,11 @@ import me.evrooij.groceries.util.Extensions;
 
 public class RecordAdapter extends ArrayAdapter<Record> {
 
+    private final ArrayList<Record> items;
+
     public RecordAdapter(Context context, ArrayList<Record> items) {
         super(context, 0, items);
+        this.items = items;
     }
 
     @Override
@@ -41,6 +44,10 @@ public class RecordAdapter extends ArrayAdapter<Record> {
         }
 
         return convertView;
+    }
+
+    public ArrayList<Record> getItems() {
+        return items;
     }
 }
 
