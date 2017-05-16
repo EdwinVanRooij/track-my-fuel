@@ -9,14 +9,15 @@ import android.provider.BaseColumns;
 
 public final class RecordContract {
 
-    public static class Record implements BaseColumns {
+    public static class Record {
         public static final String TABLE_NAME = "record";
+        public static final String COLUMN_RECORD_ID = "id";
         public static final String COLUMN_RECORD_KM = "km";
         public static final String COLUMN_RECORD_TYPE = "type";
 
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + Record.TABLE_NAME + " (" +
-                        Record._ID + " INTEGER PRIMARY KEY," +
+                        Record.COLUMN_RECORD_ID + " INTEGER PRIMARY KEY," +
                         Record.COLUMN_RECORD_KM + " INTEGER," +
                         Record.COLUMN_RECORD_TYPE + " INTEGER)";
 

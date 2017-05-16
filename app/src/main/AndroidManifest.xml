@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.github.edwinvanrooij.trackmyfuel" >
+    package="io.github.edwinvanrooij.trackmyfuel">
 
     <application
         android:allowBackup="true"
@@ -15,6 +15,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ModifyRecordActivity"
+            android:label="@string/title_activity_modify_record"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.edwinvanrooij.trackmyfuel.MainActivity" />
         </activity>
     </application>
 

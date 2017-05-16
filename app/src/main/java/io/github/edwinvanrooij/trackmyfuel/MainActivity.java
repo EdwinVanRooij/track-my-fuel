@@ -1,6 +1,7 @@
 package io.github.edwinvanrooij.trackmyfuel;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,8 +22,16 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemLongClick;
+
+import static io.github.edwinvanrooij.trackmyfuel.util.Config.KEY_RECORD;
 
 public class MainActivity extends AppCompatActivity {
+
+    public final static int MODIFY_RECORD = 1;
+
+    public final static int RESULT_UPDATE = 100;
+    public final static int RESULT_DELETE = 101;
 
     @BindView(R.id.et_total)
     EditText total;
@@ -63,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
         listview.setAdapter(mAdapter);
     }
 
+    @OnItemLongClick(R.id.listview)
+    boolean onItemLongClick(int position) {
+        Record r = mAdapter.getItem(position);
+        Toast.makeText(this, String.format("Clicked %s", r), Toast.LENGTH_SHORT).show();
+
+        startActivityForResult(new Intent(this, ModifyRecordActivity.class).putExtra(KEY_RECORD, Parcels.wrap(r)), MODIFY_RECORD);
+        return true;
+    }
+
     @OnClick(R.id.btn_add)
     void add() {
         int km = Integer.valueOf(total.getText().toString());
@@ -89,6 +109,24 @@ public class MainActivity extends AppCompatActivity {
         addToDb(record);
     }
 
+    private void updateDb(Record record) {
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        values.put(RecordContract.Record.COLUMN_RECORD_KM, record.getKm());
+        values.put(RecordContract.Record.COLUMN_RECORD_TYPE, record.getType().ordinal());
+
+        // Which row to update, based on the title
+        String selection = RecordContract.Record.COLUMN_RECORD_ID + " = ?";
+
+        int count = db.update(
+                RecordContract.Record.TABLE_NAME,
+                values,
+                selection);
+
+        long newRowId = db.update(RecordContract.Record.TABLE_NAME, values);
+    }
     private void addToDb(Record record) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -138,4 +176,17 @@ public class MainActivity extends AppCompatActivity {
         return resultList;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MODIFY_RECORD) {
+            if (resultCode == RESULT_UPDATE) {
+                Record record = Parcels.unwrap(data.getParcelableExtra(KEY_RECORD));
+                Toast.makeText(this, String.format("Update: %s", record.toString()), Toast.LENGTH_SHORT).show();
+
+            } else if (resultCode == RESULT_DELETE) {
+                Record record = Parcels.unwrap(data.getParcelableExtra(KEY_RECORD));
+                Toast.makeText(this, String.format("Delete: %s", record.toString()), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

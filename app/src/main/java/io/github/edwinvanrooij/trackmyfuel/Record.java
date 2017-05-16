@@ -1,12 +1,20 @@
 package io.github.edwinvanrooij.trackmyfuel;
 
+import org.parceler.Parcel;
+
 /**
  * Created by eddy on 5/16/17.
  */
 
+@Parcel
 public class Record {
+    private int id;
     private int km;
     private Type type;
+
+    public long getId() {
+        return id;
+    }
 
     public int getKm() {
         return km;
@@ -16,7 +24,16 @@ public class Record {
         return type;
     }
 
+    public Record() {
+    }
+
     public Record(int km, Type type) {
+        this.km = km;
+        this.type = type;
+    }
+
+    public Record(int id, int km, Type type) {
+        this.id = id;
         this.km = km;
         this.type = type;
     }
@@ -24,20 +41,12 @@ public class Record {
     public enum Type {
         INSIDE, AVERAGE, OUTSIDE
     }
-//
-//    public enum Type {
-//        INSIDE(0),
-//        AVERAGE(1),
-//        OUTSIDE(2);
-//
-//        private final int value;
-//
-//        Type(final int newValue) {
-//            value = newValue;
-//        }
-//
-//        public int getValue() {
-//            return value;
-//        }
-//    }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "km=" + km +
+                ", type=" + type +
+                '}';
+    }
 }

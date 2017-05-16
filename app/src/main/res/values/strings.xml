@@ -14,4 +14,7 @@
         <item>@string/outside</item>
     </string-array>
     <string name="outside">Outside</string>
+    <string name="title_activity_modify_record">ModifyRecordActivity</string>
+    <string name="update">Update</string>
+    <string name="delete">delete</string>
 </resources>
