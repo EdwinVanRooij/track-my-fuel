@@ -7,4 +7,7 @@
     <string name="total">Totaal...</string>
     <string name="km">km</string>
     <string name="records">Ritten</string>
+    <string name="outside">Buiten</string>
+    <string name="average">Gemiddeld</string>
+    <string name="inside">Binnen</string>
 </resources>

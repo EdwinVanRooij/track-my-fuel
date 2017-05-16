@@ -6,12 +6,12 @@
     <string name="add">Add</string>
     <string name="km">km</string>
     <string name="records">Records</string>
-    <string name="inside">inside</string>
-    <string name="average">average</string>
+    <string name="inside">Inside</string>
+    <string name="average">Average</string>
     <string-array name="spinner">
-        <item>Inside</item>
-        <item>Average</item>
-        <item>Outside</item>
+        <item>@string/inside</item>
+        <item>@string/average</item>
+        <item>@string/outside</item>
     </string-array>
-    <string name="outside">outside</string>
+    <string name="outside">Outside</string>
 </resources>
