@@ -108,25 +108,25 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.add(record);
         addToDb(record);
     }
-
-    private void updateDb(Record record) {
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        // New value for one column
-        ContentValues values = new ContentValues();
-        values.put(RecordContract.Record.COLUMN_RECORD_KM, record.getKm());
-        values.put(RecordContract.Record.COLUMN_RECORD_TYPE, record.getType().ordinal());
-
-        // Which row to update, based on the title
-        String selection = RecordContract.Record.COLUMN_RECORD_ID + " = ?";
-
-        int count = db.update(
-                RecordContract.Record.TABLE_NAME,
-                values,
-                selection);
-
-        long newRowId = db.update(RecordContract.Record.TABLE_NAME, values);
-    }
+//
+//    private void updateDb(Record record) {
+//        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+//
+//        // New value for one column
+//        ContentValues values = new ContentValues();
+//        values.put(RecordContract.Record.COLUMN_RECORD_KM, record.getKm());
+//        values.put(RecordContract.Record.COLUMN_RECORD_TYPE, record.getType().ordinal());
+//
+//        // Which row to update, based on the title
+//        String selection = RecordContract.Record.COLUMN_RECORD_ID + " = ?";
+//
+//        int count = db.update(
+//                RecordContract.Record.TABLE_NAME,
+//                values,
+//                selection);
+//
+//        long newRowId = db.update(RecordContract.Record.TABLE_NAME, values);
+//    }
     private void addToDb(Record record) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
