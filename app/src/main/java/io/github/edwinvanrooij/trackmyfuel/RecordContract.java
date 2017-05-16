@@ -3,7 +3,8 @@ package io.github.edwinvanrooij.trackmyfuel;
 import android.provider.BaseColumns;
 
 /**
- * Created by eddy on 5/16/17.
+ * Author eddy
+ * Created on 5/16/17.
  */
 
 public final class RecordContract {
@@ -13,15 +14,14 @@ public final class RecordContract {
         public static final String COLUMN_RECORD_KM = "km";
         public static final String COLUMN_RECORD_TYPE = "type";
 
-        private static final String SQL_CREATE_ENTRIES =
+        public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + Record.TABLE_NAME + " (" +
-                        Record._ID + " INTEGER PRIMARY KEY, "
-//                https://developer.android.com/training/basics/data-storage/databases.html
+                        Record._ID + " INTEGER PRIMARY KEY," +
+                        Record.COLUMN_RECORD_KM + " INTEGER," +
+                        Record.COLUMN_RECORD_TYPE + " INTEGER)";
+
+        public static final String SQL_DELETE_ENTRIES =
+                "DROP TABLES IF EXISTS " + Record.TABLE_NAME;
     }
-
-
-
-
-
 
 }

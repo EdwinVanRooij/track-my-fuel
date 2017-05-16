@@ -12,16 +12,8 @@ public class Record {
         return km;
     }
 
-    public void setKm(int km) {
-        this.km = km;
-    }
-
     public Type getType() {
         return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 
     public Record(int km, Type type) {
@@ -29,17 +21,23 @@ public class Record {
         this.type = type;
     }
 
-    enum Type {
-        Inside,
-        Average,
-        Outside,;
+    public enum Type {
+        INSIDE, AVERAGE, OUTSIDE
     }
-
-    @Override
-    public String toString() {
-        return "Record{" +
-                "km=" + km +
-                ", type=" + type +
-                '}';
-    }
+//
+//    public enum Type {
+//        INSIDE(0),
+//        AVERAGE(1),
+//        OUTSIDE(2);
+//
+//        private final int value;
+//
+//        Type(final int newValue) {
+//            value = newValue;
+//        }
+//
+//        public int getValue() {
+//            return value;
+//        }
+//    }
 }

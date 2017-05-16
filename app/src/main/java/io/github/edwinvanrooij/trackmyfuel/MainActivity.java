@@ -1,5 +1,8 @@
 package io.github.edwinvanrooij.trackmyfuel;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -8,8 +11,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.DataOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindString;
@@ -33,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     @BindString(R.string.outside)
     String outside;
 
-    RecordAdapter adapter;
+    RecordAdapter mAdapter;
+    RecordDbHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +47,20 @@ public class MainActivity extends AppCompatActivity {
 
         initSpinner();
         initListView();
+        mAdapter.addAll(getAllRecords());
     }
 
     @Override
     protected void onDestroy() {
+        mDbHelper.close();
         super.onDestroy();
-
     }
 
     private void initListView() {
         ArrayList<Record> data = new ArrayList<>();
-        adapter = new RecordAdapter(this, data);
+        mAdapter = new RecordAdapter(this, data);
 
-        listview.setAdapter(adapter);
+        listview.setAdapter(mAdapter);
     }
 
     @OnClick(R.id.btn_add)
@@ -67,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
         String spinnerSelection = spinner.getSelectedItem().toString();
 
         if (Objects.equals(spinnerSelection, inside)) {
-            type = Record.Type.Inside;
+            type = Record.Type.INSIDE;
         } else if (Objects.equals(spinnerSelection, average)) {
-            type = Record.Type.Average;
+            type = Record.Type.AVERAGE;
         } else if (Objects.equals(spinnerSelection, outside)) {
-            type = Record.Type.Outside;
+            type = Record.Type.OUTSIDE;
         } else {
             Toast.makeText(this,
                     "Could not determine spinner selection, it equals none of the accepted types: {}"
@@ -80,7 +85,21 @@ public class MainActivity extends AppCompatActivity {
 
         Record record = new Record(km, type);
 
-        adapter.add(record);
+        mAdapter.add(record);
+        addToDb(record);
+    }
+
+    private void addToDb(Record record) {
+        // Gets the data repository in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        // Create a new map of values, where column names are the keys
+        ContentValues values = new ContentValues();
+        values.put(RecordContract.Record.COLUMN_RECORD_KM, record.getKm());
+        values.put(RecordContract.Record.COLUMN_RECORD_TYPE, record.getType().ordinal());
+
+        // Insert the new row, returning the primary key value of the new row
+        long newRowId = db.insert(RecordContract.Record.TABLE_NAME, null, values);
     }
 
     private void initSpinner() {
@@ -91,7 +110,32 @@ public class MainActivity extends AppCompatActivity {
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // Apply the adapter to the spinner
+        // Apply the mAdapter to the spinner
         spinner.setAdapter(adapter);
     }
+
+    private List<Record> getAllRecords() {
+        List<Record> resultList = new ArrayList<>();
+
+        mDbHelper = new RecordDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(String.format("select * from %s", RecordContract.Record.TABLE_NAME), null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                Integer km = cursor.getInt(cursor.getColumnIndex(RecordContract.Record.COLUMN_RECORD_KM));
+                Integer type = cursor.getInt(cursor.getColumnIndex(RecordContract.Record.COLUMN_RECORD_TYPE));
+
+                Record record = new Record(km, Record.Type.values()[type]);
+                resultList.add(record);
+
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+
+        return resultList;
+    }
+
 }
