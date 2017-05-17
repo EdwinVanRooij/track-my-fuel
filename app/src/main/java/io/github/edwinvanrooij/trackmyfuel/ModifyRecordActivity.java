@@ -51,22 +51,21 @@ public class ModifyRecordActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRecord = Parcels.unwrap(getIntent().getParcelableExtra(KEY_RECORD));
-        mTotal.setText(mRecord.getKm());
+        mTotal.setText(Integer.toString(mRecord.getKm()));
 
-        String spinnerSelection = mSpinner.getSelectedItem().toString();
-        if (Objects.equals(spinnerSelection, inside)) {
+        initSpinner();
+
+        if (Objects.equals(mRecord.getType().toString(),  inside.toUpperCase())) {
             mSpinner.setSelection(0);
-        } else if (Objects.equals(spinnerSelection, average)) {
+        } else if (Objects.equals(mRecord.getType().toString(), average.toUpperCase())) {
             mSpinner.setSelection(1);
-        } else if (Objects.equals(spinnerSelection, outside)) {
+        } else if (Objects.equals(mRecord.getType().toString(), outside.toUpperCase())) {
             mSpinner.setSelection(2);
         } else {
             Toast.makeText(this,
-                    "Could not determine spinner selection, it equals none of the accepted types: {}"
+                    "Could not determine spinner selection, it equals none of the accepted types: %s does not equal (eg) %s"
                     , Toast.LENGTH_SHORT).show();
         }
-
-        initSpinner();
     }
 
     private void initSpinner() {
@@ -78,7 +77,7 @@ public class ModifyRecordActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the mAdapter to the spinner
-        spinner.setAdapter(adapter);
+        mSpinner.setAdapter(adapter);
     }
 
     @OnClick(R.id.btn_delete)
@@ -92,6 +91,22 @@ public class ModifyRecordActivity extends AppCompatActivity {
     @OnClick(R.id.btn_update)
     void update() {
         Intent returnIntent = new Intent();
+
+        mRecord.setKm(Integer.valueOf(mTotal.getText().toString()));
+
+        String spinnerSelection = mSpinner.getSelectedItem().toString();
+        if (Objects.equals(spinnerSelection, inside)) {
+            mRecord.setType( Record.Type.INSIDE);
+        } else if (Objects.equals(spinnerSelection, average)) {
+            mRecord.setType( Record.Type.AVERAGE);
+        } else if (Objects.equals(spinnerSelection, outside)) {
+            mRecord.setType( Record.Type.OUTSIDE);
+        } else {
+            Toast.makeText(this,
+                    "Could not determine spinner selection, it equals none of the accepted types: {}"
+                    , Toast.LENGTH_SHORT).show();
+        }
+
         returnIntent.putExtra(KEY_RECORD, Parcels.wrap(mRecord));
         setResult(MainActivity.RESULT_UPDATE, returnIntent);
         finish();

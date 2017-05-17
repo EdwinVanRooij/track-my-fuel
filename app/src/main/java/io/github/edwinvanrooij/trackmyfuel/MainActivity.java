@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         Record.Type type = null;
 
         String spinnerSelection = spinner.getSelectedItem().toString();
-
         if (Objects.equals(spinnerSelection, inside)) {
             type = Record.Type.INSIDE;
         } else if (Objects.equals(spinnerSelection, average)) {
@@ -105,29 +104,31 @@ public class MainActivity extends AppCompatActivity {
 
         Record record = new Record(km, type);
 
+        record = addToDb(record);
         mAdapter.add(record);
-        addToDb(record);
     }
-//
-//    private void updateDb(Record record) {
-//        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-//
-//        // New value for one column
-//        ContentValues values = new ContentValues();
-//        values.put(RecordContract.Record.COLUMN_RECORD_KM, record.getKm());
-//        values.put(RecordContract.Record.COLUMN_RECORD_TYPE, record.getType().ordinal());
-//
-//        // Which row to update, based on the title
-//        String selection = RecordContract.Record.COLUMN_RECORD_ID + " = ?";
-//
-//        int count = db.update(
-//                RecordContract.Record.TABLE_NAME,
-//                values,
-//                selection);
-//
-//        long newRowId = db.update(RecordContract.Record.TABLE_NAME, values);
-//    }
-    private void addToDb(Record record) {
+
+    private void refreshListview() {
+        mAdapter.clear();
+        mAdapter.addAll(getAllRecords());
+    }
+
+    private boolean deleteFromDb(Record record) {
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        return db.delete(RecordContract.Record.TABLE_NAME, RecordContract.Record.COLUMN_RECORD_ID + "=" + record.getId(), null) > 0;
+    }
+
+    private void updateFromDb(Record record) {
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(RecordContract.Record.COLUMN_RECORD_KM, record.getKm());
+        cv.put(RecordContract.Record.COLUMN_RECORD_TYPE, record.getType().ordinal());
+
+        db.update(RecordContract.Record.TABLE_NAME, cv, RecordContract.Record.COLUMN_RECORD_ID + "=" + record.getId(), null);
+    }
+
+    private Record addToDb(Record record) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -138,6 +139,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(RecordContract.Record.TABLE_NAME, null, values);
+
+        Record newRecord = new Record((int) newRowId, record.getKm(), record.getType());
+
+        System.out.println(String.format("Returning new record; %s", newRecord));
+
+        return newRecord;
     }
 
     private void initSpinner() {
@@ -162,10 +169,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
+                Integer id = cursor.getInt(cursor.getColumnIndex(RecordContract.Record.COLUMN_RECORD_ID));
                 Integer km = cursor.getInt(cursor.getColumnIndex(RecordContract.Record.COLUMN_RECORD_KM));
                 Integer type = cursor.getInt(cursor.getColumnIndex(RecordContract.Record.COLUMN_RECORD_TYPE));
 
-                Record record = new Record(km, Record.Type.values()[type]);
+                Record record = new Record(id, km, Record.Type.values()[type]);
                 resultList.add(record);
 
                 cursor.moveToNext();
@@ -180,12 +188,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MODIFY_RECORD) {
             if (resultCode == RESULT_UPDATE) {
+
                 Record record = Parcels.unwrap(data.getParcelableExtra(KEY_RECORD));
-                Toast.makeText(this, String.format("Update: %s", record.toString()), Toast.LENGTH_SHORT).show();
+                updateFromDb(record);
+                Toast.makeText(this, String.format("Updated: %s", record.toString()), Toast.LENGTH_SHORT).show();
+                refreshListview();
 
             } else if (resultCode == RESULT_DELETE) {
+
                 Record record = Parcels.unwrap(data.getParcelableExtra(KEY_RECORD));
-                Toast.makeText(this, String.format("Delete: %s", record.toString()), Toast.LENGTH_SHORT).show();
+                deleteFromDb(record);
+                Toast.makeText(this, String.format("Deleted: %s", record.toString()), Toast.LENGTH_SHORT).show();
+                refreshListview();
+
             }
         }
     }

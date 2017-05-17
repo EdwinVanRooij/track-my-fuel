@@ -20,6 +20,18 @@ public class Record {
         return km;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setKm(int km) {
+        this.km = km;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     public Type getType() {
         return type;
     }
@@ -45,7 +57,8 @@ public class Record {
     @Override
     public String toString() {
         return "Record{" +
-                "km=" + km +
+                "id=" + id +
+                ", km=" + km +
                 ", type=" + type +
                 '}';
     }
