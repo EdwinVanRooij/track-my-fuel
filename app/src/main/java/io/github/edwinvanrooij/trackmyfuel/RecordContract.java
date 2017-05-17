@@ -22,7 +22,7 @@ public final class RecordContract {
                         Record.COLUMN_RECORD_TYPE + " INTEGER)";
 
         public static final String SQL_DELETE_ENTRIES =
-                "DROP TABLES IF EXISTS " + Record.TABLE_NAME;
+                "DROP TABLE IF EXISTS " + Record.TABLE_NAME;
     }
 
 }
