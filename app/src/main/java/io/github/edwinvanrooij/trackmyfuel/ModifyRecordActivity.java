@@ -10,8 +10,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.parceler.Parcels;
+
+import java.util.Objects;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -23,9 +26,9 @@ import static io.github.edwinvanrooij.trackmyfuel.util.Config.KEY_RECORD;
 public class ModifyRecordActivity extends AppCompatActivity {
 
     @BindView(R.id.et_total)
-    EditText total;
+    EditText mTotal;
     @BindView(R.id.spinner)
-    Spinner spinner;
+    Spinner mSpinner;
 
     @BindString(R.string.inside)
     String inside;
@@ -48,6 +51,20 @@ public class ModifyRecordActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRecord = Parcels.unwrap(getIntent().getParcelableExtra(KEY_RECORD));
+        mTotal.setText(mRecord.getKm());
+
+        String spinnerSelection = mSpinner.getSelectedItem().toString();
+        if (Objects.equals(spinnerSelection, inside)) {
+            mSpinner.setSelection(0);
+        } else if (Objects.equals(spinnerSelection, average)) {
+            mSpinner.setSelection(1);
+        } else if (Objects.equals(spinnerSelection, outside)) {
+            mSpinner.setSelection(2);
+        } else {
+            Toast.makeText(this,
+                    "Could not determine spinner selection, it equals none of the accepted types: {}"
+                    , Toast.LENGTH_SHORT).show();
+        }
 
         initSpinner();
     }
