@@ -99,18 +99,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         menu.findItem(R.id.nav_drawer_home).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_home));
 
         // Communication
-        menu.findItem(R.id.nav_drawer_lists).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_list));
-        menu.findItem(R.id.nav_drawer_products).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_content_paste));
-        menu.findItem(R.id.nav_drawer_friends).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_supervisor_account));
-        menu.findItem(R.id.nav_drawer_suggestion).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_lightbulb_outline));
-        menu.findItem(R.id.nav_drawer_bug).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_bug_report));
+//        menu.findItem(R.id.nav).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_list));
+//        menu.findItem(R.id.nav_drawer_products).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_content_paste));
+//        menu.findItem(R.id.nav_drawer_friends).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_supervisor_account));
+//        menu.findItem(R.id.nav_drawer_suggestion).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_lightbulb_outline));
+//        menu.findItem(R.id.nav_drawer_bug).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_bug_report));
 
         // Last group
         menu.findItem(R.id.nav_drawer_settings).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_settings));
-        menu.findItem(R.id.nav_drawer_logout).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_exit_to_app));
 
-        View header = navigationView.getHeaderView(0);
-
+//        View header = navigationView.getHeaderView(0);
+//
 //        TextView tvName = (TextView) header.findViewById(R.id.nav_header_name);
 //        TextView tvEmail = (TextView) header.findViewById(R.id.nav_header_email);
 //        tvName.setText(thisAccount.getUsername());
@@ -137,34 +136,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id) {
             case R.id.nav_drawer_home:
 //                setDefaultListFragment();
+                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.nav_drawer_lists:
+            case R.id.nav_drawer_all_records:
+                Toast.makeText(this, "All records", Toast.LENGTH_SHORT).show();
 //                setFragment(MyListsFragment.class, false);
 //                fab.show();
                 break;
-            case R.id.nav_drawer_products:
+            case R.id.nav_drawer_bill:
 //                setFragment(MyProductsFragment.class, false);
 //                fab.show();
                 break;
-            case R.id.nav_drawer_friends:
+            case R.id.nav_drawer_payment:
 //                setFragment(FriendsFragment.class, false);
 //                fab.show();
                 break;
-            case R.id.nav_drawer_suggestion:
+            case R.id.nav_drawer_my_records:
 //                setFragment(SuggestionFragment.class, false);
-//                fab.hide();
-                break;
-            case R.id.nav_drawer_bug:
-//                setFragment(BugFragment.class, false);
 //                fab.hide();
                 break;
             case R.id.nav_drawer_settings:
 //                We don't need a fab in settings
 //                setFragment(SettingsFragment.class, false);
 //                fab.hide();
-                break;
-            case R.id.nav_drawer_logout:
-//                logOut();
                 break;
             default:
                 Toast.makeText(this, "Could not determine which drawer item was clicked", Toast.LENGTH_SHORT).show();

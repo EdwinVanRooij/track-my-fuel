@@ -9,28 +9,24 @@
             android:title="@string/nav_drawer_home" />
     </group>
 
-    <item android:title="@string/nav_drawer_group_communication">
+    <item android:title="@string/nav_drawer_group_functions">
         <menu>
             <item
-                android:id="@+id/nav_drawer_lists"
+                android:id="@+id/nav_drawer_all_records"
                 android:checkable="true"
-                android:title="@string/title_lists" />
+                android:title="@string/title_all_records" />
             <item
-                android:id="@+id/nav_drawer_products"
+                android:id="@+id/nav_drawer_bill"
                 android:checkable="true"
-                android:title="@string/title_products" />
+                android:title="@string/title_bill" />
             <item
-                android:id="@+id/nav_drawer_friends"
+                android:id="@+id/nav_drawer_payment"
                 android:checkable="true"
-                android:title="@string/title_friends" />
+                android:title="@string/title_payment" />
             <item
-                android:id="@+id/nav_drawer_suggestion"
+                android:id="@+id/nav_drawer_my_records"
                 android:checkable="true"
-                android:title="@string/title_suggestions" />
-            <item
-                android:id="@+id/nav_drawer_bug"
-                android:checkable="true"
-                android:title="@string/title_bugs" />
+                android:title="@string/title_my_records" />
         </menu>
     </item>
 
@@ -40,9 +36,6 @@
         <item
             android:id="@+id/nav_drawer_settings"
             android:title="@string/title_settings" />
-        <item
-            android:id="@+id/nav_drawer_logout"
-            android:title="@string/nav_drawer_logout" />
     </group>
 
 
