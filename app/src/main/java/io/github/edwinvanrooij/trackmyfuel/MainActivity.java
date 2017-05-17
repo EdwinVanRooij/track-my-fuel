@@ -1,16 +1,28 @@
 package io.github.edwinvanrooij.trackmyfuel;
 
 import android.content.ContentValues;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import org.parceler.Parcels;
 
@@ -26,12 +38,19 @@ import butterknife.OnItemLongClick;
 
 import static io.github.edwinvanrooij.trackmyfuel.util.Config.KEY_RECORD;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public final static int MODIFY_RECORD = 1;
 
     public final static int RESULT_UPDATE = 100;
     public final static int RESULT_DELETE = 101;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
 
     @BindView(R.id.et_total)
     EditText total;
@@ -55,16 +74,104 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+
+        initNavigationDrawer();
 
         initSpinner();
         initListView();
         mAdapter.addAll(getAllRecords());
     }
 
+    /**
+     * Initializes the navigation drawer, including variable usage to set account name and email in the header
+     */
+    private void initNavigationDrawer() {
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+        Menu menu = navigationView.getMenu();
+
+        // First group
+        menu.findItem(R.id.nav_drawer_home).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_home));
+
+        // Communication
+        menu.findItem(R.id.nav_drawer_lists).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_list));
+        menu.findItem(R.id.nav_drawer_products).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_content_paste));
+        menu.findItem(R.id.nav_drawer_friends).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_supervisor_account));
+        menu.findItem(R.id.nav_drawer_suggestion).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_lightbulb_outline));
+        menu.findItem(R.id.nav_drawer_bug).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_bug_report));
+
+        // Last group
+        menu.findItem(R.id.nav_drawer_settings).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_settings));
+        menu.findItem(R.id.nav_drawer_logout).setIcon(new IconicsDrawable(this, GoogleMaterial.Icon.gmd_exit_to_app));
+
+        View header = navigationView.getHeaderView(0);
+
+//        TextView tvName = (TextView) header.findViewById(R.id.nav_header_name);
+//        TextView tvEmail = (TextView) header.findViewById(R.id.nav_header_email);
+//        tvName.setText(thisAccount.getUsername());
+//        tvEmail.setText(thisAccount.getEmail());
+//
+//        header.setOnClickListener(v -> {
+//            drawer.closeDrawer(GravityCompat.START);
+//            setFragment(MyProfileFragment.class, true);
+//            fab.hide();
+//        });
+
+    }
     @Override
     protected void onDestroy() {
         mDbHelper.close();
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.nav_drawer_home:
+//                setDefaultListFragment();
+                break;
+            case R.id.nav_drawer_lists:
+//                setFragment(MyListsFragment.class, false);
+//                fab.show();
+                break;
+            case R.id.nav_drawer_products:
+//                setFragment(MyProductsFragment.class, false);
+//                fab.show();
+                break;
+            case R.id.nav_drawer_friends:
+//                setFragment(FriendsFragment.class, false);
+//                fab.show();
+                break;
+            case R.id.nav_drawer_suggestion:
+//                setFragment(SuggestionFragment.class, false);
+//                fab.hide();
+                break;
+            case R.id.nav_drawer_bug:
+//                setFragment(BugFragment.class, false);
+//                fab.hide();
+                break;
+            case R.id.nav_drawer_settings:
+//                We don't need a fab in settings
+//                setFragment(SettingsFragment.class, false);
+//                fab.hide();
+                break;
+            case R.id.nav_drawer_logout:
+//                logOut();
+                break;
+            default:
+                Toast.makeText(this, "Could not determine which drawer item was clicked", Toast.LENGTH_SHORT).show();
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private void initListView() {
