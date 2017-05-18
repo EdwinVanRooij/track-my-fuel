@@ -83,43 +83,24 @@ public class MainFragment extends BaseFragment {
 
     @Override
     void onContainterActivityResult(int requestCode, int resultCode, Intent data) {
-
         switch (requestCode) {
-
             case MODIFY_RECORD:
-
                 switch (resultCode) {
                     case RESULT_UPDATE: {
-
                         Record record = Parcels.unwrap(data.getParcelableExtra(KEY_RECORD));
-
                         db.updateFromDb(record);
                         refreshListview();
-
-                        Toast.makeText(getContext(), String.format("Updated: %s", record.toString()), Toast.LENGTH_SHORT).show();
-
                         break;
                     }
                     case RESULT_DELETE: {
-
                         Record record = Parcels.unwrap(data.getParcelableExtra(KEY_RECORD));
-
                         db.deleteFromDb(record);
                         refreshListview();
-
-                        Toast.makeText(getContext(), String.format("Deleted: %s", record.toString()), Toast.LENGTH_SHORT).show();
                         break;
                     }
-                    default:
-                        Toast.makeText(getContext(), String.format("Resultcode was %s, looking for %s", resultCode, RESULT_UPDATE), Toast.LENGTH_SHORT).show();
-                        break;
                 }
                 break;
-            default:
-                Toast.makeText(getContext(), String.format("Requestcode was %s, looking for %s", requestCode, MODIFY_RECORD), Toast.LENGTH_SHORT).show();
-                break;
         }
-
     }
 
     public void initListView() {
