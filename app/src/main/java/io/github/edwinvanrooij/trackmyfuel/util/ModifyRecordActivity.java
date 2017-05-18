@@ -1,12 +1,9 @@
-package io.github.edwinvanrooij.trackmyfuel;
+package io.github.edwinvanrooij.trackmyfuel.util;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -20,6 +17,8 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.edwinvanrooij.trackmyfuel.R;
+import io.github.edwinvanrooij.trackmyfuel.Record;
 
 import static io.github.edwinvanrooij.trackmyfuel.util.Config.KEY_RECORD;
 

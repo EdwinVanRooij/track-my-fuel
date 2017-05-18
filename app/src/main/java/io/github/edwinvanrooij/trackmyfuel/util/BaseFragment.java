@@ -1,5 +1,6 @@
-package io.github.edwinvanrooij.trackmyfuel;
+package io.github.edwinvanrooij.trackmyfuel.util;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.view.View;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.github.edwinvanrooij.trackmyfuel.Record;
 
 /**
  * Author: eddy
@@ -30,4 +32,6 @@ public abstract class BaseFragment extends Fragment {
         unbinder.unbind();
         super.onDestroyView();
     }
+
+    abstract void onContainterActivityResult(int requestCode, int resultCode, Intent data);
 }
