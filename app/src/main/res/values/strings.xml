@@ -45,5 +45,9 @@
     <string name="placeholder_desc" translatable="false">This is a description.</string>
     <string name="placeholder_paragraph" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius nisi, a mattis erat. Etiam sit amet orci et risus imperdiet vehicula vitae in sapien. Donec a tellus a odio laoreet elementum. Ut tempor sem ac viverra volutpat. Pellentesque efficitur, ipsum a suscipit elementum, leo ipsum aliquet dui, sit amet accumsan diam arcu et velit</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="total_title">Total</string>
+
 
 </resources>

@@ -156,16 +156,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.nav_drawer_home:
-//                setDefaultListFragment();
-                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+                setDefaultListFragment();
                 break;
             case R.id.nav_drawer_all_records:
-                Toast.makeText(this, "All records", Toast.LENGTH_SHORT).show();
 //                setFragment(MyListsFragment.class, false);
 //                fab.show();
                 break;
             case R.id.nav_drawer_bill:
-//                setFragment(MyProductsFragment.class, false);
+                setFragment(BillFragment.class, false);
 //                fab.show();
                 break;
             case R.id.nav_drawer_payment:

@@ -10,4 +10,15 @@
     <string name="outside">Buiten</string>
     <string name="average">Gemiddeld</string>
     <string name="inside">Binnen</string>
+    <string name="title_activity_modify_record">Rit Aanpassen</string>
+    <string name="title_all_records">Alle Ritten</string>
+    <string name="title_bill">Rekening</string>
+    <string name="title_my_records">Mijn Ritten</string>
+    <string name="title_payment">Betaling</string>
+    <string name="title_settings">Instellingen</string>
+    <string name="update">Bijwerken</string>
+    <string name="nav_drawer_logout">Uitloggen</string>
+    <string name="nav_drawer_home">Home</string>
+    <string name="nav_drawer_group_functions">Functies</string>
+    <string name="delete">Verwijderen</string>
 </resources>

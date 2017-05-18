@@ -39,12 +39,6 @@ import static io.github.edwinvanrooij.trackmyfuel.util.MainActivity.RESULT_UPDAT
  */
 public class MainFragment extends BaseFragment {
 
-//    @BindView(R.id.lv_my_groceries)
-//    ListView listView;
-//
-//    public ProductAdapter adapter;
-//    public Product editingProduct;
-
     RecordAdapter mAdapter;
 
     @BindView(R.id.et_total)
@@ -61,7 +55,6 @@ public class MainFragment extends BaseFragment {
     @BindString(R.string.outside)
     String outside;
 
-    //    public GroceryList getContext()List;
     Database db;
 
     @Override
@@ -82,7 +75,7 @@ public class MainFragment extends BaseFragment {
     }
 
     @Override
-    void onContainterActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onContainterActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case MODIFY_RECORD:
                 switch (resultCode) {
