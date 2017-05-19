@@ -1,8 +1,7 @@
-package io.github.edwinvanrooij.trackmyfuel.util;
+package io.github.edwinvanrooij.trackmyfuel.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,9 +29,6 @@ import io.github.edwinvanrooij.trackmyfuel.persistence.Database;
 import me.evrooij.groceries.util.Extensions;
 
 import static io.github.edwinvanrooij.trackmyfuel.util.Config.KEY_RECORD;
-import static io.github.edwinvanrooij.trackmyfuel.util.MainActivity.MODIFY_RECORD;
-import static io.github.edwinvanrooij.trackmyfuel.util.MainActivity.RESULT_DELETE;
-import static io.github.edwinvanrooij.trackmyfuel.util.MainActivity.RESULT_UPDATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,15 +73,15 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onContainterActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case MODIFY_RECORD:
+            case MainActivity.MODIFY_RECORD:
                 switch (resultCode) {
-                    case RESULT_UPDATE: {
+                    case MainActivity.RESULT_UPDATE: {
                         Record record = Parcels.unwrap(data.getParcelableExtra(KEY_RECORD));
                         db.updateFromDb(record);
                         refreshListview();
                         break;
                     }
-                    case RESULT_DELETE: {
+                    case MainActivity.RESULT_DELETE: {
                         Record record = Parcels.unwrap(data.getParcelableExtra(KEY_RECORD));
                         db.deleteFromDb(record);
                         refreshListview();

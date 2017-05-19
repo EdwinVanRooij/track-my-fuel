@@ -6,7 +6,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context="io.github.edwinvanrooij.trackmyfuel.util.MainActivity">
+              tools:context="io.github.edwinvanrooij.trackmyfuel.ui.MainActivity">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

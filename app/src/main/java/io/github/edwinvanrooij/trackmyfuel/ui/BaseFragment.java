@@ -1,4 +1,4 @@
-package io.github.edwinvanrooij.trackmyfuel.util;
+package io.github.edwinvanrooij.trackmyfuel.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.github.edwinvanrooij.trackmyfuel.Record;
 
 /**
  * Author: eddy

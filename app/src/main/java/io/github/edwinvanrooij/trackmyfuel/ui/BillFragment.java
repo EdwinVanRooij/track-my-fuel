@@ -1,4 +1,4 @@
-package io.github.edwinvanrooij.trackmyfuel.util;
+package io.github.edwinvanrooij.trackmyfuel.ui;
 
 
 import android.os.Bundle;

@@ -1,8 +1,6 @@
-package io.github.edwinvanrooij.trackmyfuel.util;
+package io.github.edwinvanrooij.trackmyfuel.ui;
 
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -29,7 +27,6 @@ import java.util.concurrent.Executors;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.edwinvanrooij.trackmyfuel.R;
-import io.github.edwinvanrooij.trackmyfuel.Record;
 import me.evrooij.groceries.interfaces.ContainerActivity;
 
 import static io.github.edwinvanrooij.trackmyfuel.util.Config.KEY_RECORD;
