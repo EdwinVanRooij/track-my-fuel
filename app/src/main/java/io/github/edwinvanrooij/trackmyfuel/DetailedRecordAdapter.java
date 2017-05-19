@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import io.github.edwinvanrooij.trackmyfuel.domain.FuelCalculator;
+import io.github.edwinvanrooij.trackmyfuel.util.Config;
+import io.github.edwinvanrooij.trackmyfuel.util.Preferences;
 import me.evrooij.groceries.util.Extensions;
 
 /**
@@ -38,10 +41,14 @@ public class DetailedRecordAdapter extends ArrayAdapter<Record> {
         if (item != null) {
             tvKm.setText(String.format("%s km", item.getKm()));
             tvType.setText(item.getType().toString());
-            // TODO: 5/18/17 calculate costs; take distance, times rate
-            tvTotalCosts.setText("<costs>");
-        }
 
+            FuelCalculator calculator = new FuelCalculator(getContext());
+            try {
+                tvTotalCosts.setText(String.format("%s EUR", calculator.calculate(item.getType(), item.getKm())));
+            } catch (Exception e) {
+                tvTotalCosts.setText("N.A.");
+            }
+        }
         return convertView;
     }
 

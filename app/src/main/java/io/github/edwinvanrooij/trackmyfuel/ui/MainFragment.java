@@ -103,7 +103,6 @@ public class MainFragment extends BaseFragment {
     @OnItemLongClick(R.id.listview)
     boolean onItemLongClick(int position) {
         Record r = mAdapter.getItem(position);
-        Toast.makeText(getContext(), String.format("Clicked %s", r), Toast.LENGTH_SHORT).show();
 
         mainActivity.startActivityForResult(r);
         return true;

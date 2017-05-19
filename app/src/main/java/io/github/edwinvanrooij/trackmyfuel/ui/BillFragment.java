@@ -9,14 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import io.github.edwinvanrooij.trackmyfuel.DetailedRecordAdapter;
 import io.github.edwinvanrooij.trackmyfuel.R;
 import io.github.edwinvanrooij.trackmyfuel.Record;
+import io.github.edwinvanrooij.trackmyfuel.domain.FuelCalculator;
 import io.github.edwinvanrooij.trackmyfuel.persistence.Database;
+import io.github.edwinvanrooij.trackmyfuel.util.Config;
+import io.github.edwinvanrooij.trackmyfuel.util.Preferences;
 import me.evrooij.groceries.util.Extensions;
 
 /**
@@ -45,13 +50,25 @@ public class BillFragment extends BaseFragment {
         initListView();
 
         db = new Database(getContext());
-        mAdapter.addAll(db.getAllRecords());
 
-        // TODO: 5/18/17 calculate total amount of km from db
-        mTotalDistance.setText("30 km");
+        List<Record> recordList = db.getAllRecords();
+        mAdapter.addAll(recordList);
 
-        // TODO: 5/18/17 calculate total price
-        mTotalDistance.setText("53 EUR");
+        double totalDistance = 0;
+        double totalPrice = 0;
+
+        FuelCalculator calculator = new FuelCalculator(getContext());
+        for (Record r : recordList) {
+            try {
+                totalPrice += calculator.calculate(r.getType(), r.getKm());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            totalDistance += r.getKm();
+        }
+
+        mTotalDistance.setText(String.format("(%s km)", (double) Math.round(totalDistance * 100) / 100));
+        mTotalCosts.setText(String.format("(%s EUR)", (double) Math.round(totalPrice * 100) / 100));
     }
 
     public void initListView() {
