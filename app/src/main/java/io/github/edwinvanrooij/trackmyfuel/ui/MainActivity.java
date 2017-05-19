@@ -172,9 +172,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                fab.hide();
                 break;
             case R.id.nav_drawer_settings:
-//                We don't need a fab in settings
-//                setFragment(SettingsFragment.class, false);
-//                fab.hide();
+                setFragment(SettingsFragment.class, false);
                 break;
             default:
                 Toast.makeText(this, "Could not determine which drawer item was clicked", Toast.LENGTH_SHORT).show();
