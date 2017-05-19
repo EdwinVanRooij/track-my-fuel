@@ -10,8 +10,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import io.github.edwinvanrooij.trackmyfuel.domain.FuelCalculator;
-import io.github.edwinvanrooij.trackmyfuel.util.Config;
-import io.github.edwinvanrooij.trackmyfuel.util.Preferences;
 import me.evrooij.groceries.util.Extensions;
 
 /**
@@ -44,7 +42,7 @@ public class DetailedRecordAdapter extends ArrayAdapter<Record> {
 
             FuelCalculator calculator = new FuelCalculator(getContext());
             try {
-                tvTotalCosts.setText(String.format("%s EUR", calculator.calculate(item.getType(), item.getKm())));
+                tvTotalCosts.setText(String.format("%s EUR", calculator.calculateRecord(item.getType(), item.getKm())));
             } catch (Exception e) {
                 tvTotalCosts.setText("N.A.");
             }

@@ -2,6 +2,8 @@ package io.github.edwinvanrooij.trackmyfuel.domain;
 
 import android.content.Context;
 
+import java.util.List;
+
 import io.github.edwinvanrooij.trackmyfuel.Record;
 import io.github.edwinvanrooij.trackmyfuel.util.Config;
 import io.github.edwinvanrooij.trackmyfuel.util.Preferences;
@@ -21,7 +23,7 @@ public class FuelCalculator {
         this.context = context;
     }
 
-    public double calculate(Record.Type type, double km) throws Exception {
+    public double calculateRecord(Record.Type type, double km) throws Exception {
         switch (type) {
             case INSIDE:
                 return calculate(km, (double) Preferences.getValue(context, Config.PREF_KEY_LITER_FOR_KM_INSIDE), (double) Preferences.getValue(context, Config.PREF_KEY_PRICE_FOR_LITER));

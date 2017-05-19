@@ -155,22 +155,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_drawer_home:
                 setDefaultListFragment();
                 break;
-            case R.id.nav_drawer_all_records:
+//            case R.id.nav_drawer_all_records:
 //                setFragment(MyListsFragment.class, false);
-//                fab.show();
-                break;
+//                break;
             case R.id.nav_drawer_bill:
                 setFragment(BillFragment.class, false);
-//                fab.show();
                 break;
             case R.id.nav_drawer_payment:
-//                setFragment(FriendsFragment.class, false);
-//                fab.show();
+                setFragment(PaymentFragment.class, false);
                 break;
-            case R.id.nav_drawer_my_records:
+//            case R.id.nav_drawer_my_records:
 //                setFragment(SuggestionFragment.class, false);
-//                fab.hide();
-                break;
+//                break;
             case R.id.nav_drawer_settings:
                 setFragment(SettingsFragment.class, false);
                 break;

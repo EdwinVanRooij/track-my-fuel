@@ -24,7 +24,7 @@ import me.evrooij.groceries.util.Extensions;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BillFragment extends BaseFragment {
+public class PaymentFragment extends BaseFragment {
 
 
     @BindView(R.id.tvTotalDistance)
