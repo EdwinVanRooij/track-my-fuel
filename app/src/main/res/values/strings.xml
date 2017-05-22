@@ -13,11 +13,17 @@
         <item>@string/average</item>
         <item>@string/outside</item>
     </string-array>
+
     <string name="outside">Outside</string>
-    <string name="title_activity_modify_record">ModifyRecordActivity</string>
+
+    <string name="title_activity_modify_record">Modify Record</string>
+    <string name="title_activity_add_payer">Add Payer</string>
+
     <string name="update">Update</string>
     <string name="delete">delete</string>
 
+    <string name="negative">no</string>
+    <string name="positive">yes</string>
 
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
@@ -58,6 +64,14 @@
     <string name="tv_liter_for_km_outside">How many liters does 1 km driving cost outside town?</string>
 
     <string name="tv_price_for_liter">How much does one liter cost?</string>
+    <string name="hint_paid" translatable="false">54.50</string>
+    <string name="paid">Paid</string>
+    <string name="me">Me</string>
+    <string name="ok">Ok</string>
+    <string name="name">Henk...</string>
+    <string name="btn_add">Add</string>
+    <string name="reset">reset</string>
+    <string name="reset_warning">Are you sure you want to remove all current rides?</string>
 
 
 </resources>

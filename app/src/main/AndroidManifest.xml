@@ -29,6 +29,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.edwinvanrooij.trackmyfuel.ui.MainActivity" />
         </activity>
+        <activity
+            android:name=".ui.AddPayerActivity"
+            android:label="@string/title_activity_add_payer"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.edwinvanrooij.trackmyfuel.ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

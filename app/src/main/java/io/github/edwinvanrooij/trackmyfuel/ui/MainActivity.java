@@ -27,6 +27,7 @@ import java.util.concurrent.Executors;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.edwinvanrooij.trackmyfuel.R;
+import io.github.edwinvanrooij.trackmyfuel.Record;
 import me.evrooij.groceries.interfaces.ContainerActivity;
 
 import static io.github.edwinvanrooij.trackmyfuel.util.Config.KEY_RECORD;
@@ -35,9 +36,11 @@ import static io.github.edwinvanrooij.trackmyfuel.util.Config.THREADPOOL_MAINACT
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ContainerActivity {
 
     public final static int MODIFY_RECORD = 1;
+    public final static int ADD_PAYER = 2;
 
     public final static int RESULT_UPDATE = 100;
     public final static int RESULT_DELETE = 101;
+    public final static int RESULT_ADD = 102;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -194,6 +197,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void startActivityForResult(@NotNull Object obj) {
-        startActivityForResult(new Intent(this, ModifyRecordActivity.class).putExtra(KEY_RECORD, Parcels.wrap(obj)), MainActivity.MODIFY_RECORD);
+        if (obj instanceof Record) {
+            startActivityForResult(new Intent(this, ModifyRecordActivity.class).putExtra(KEY_RECORD, Parcels.wrap(obj)), MainActivity.MODIFY_RECORD);
+        } else {
+            startActivityForResult(new Intent(this, AddPayerActivity.class), MainActivity.ADD_PAYER);
+        }
     }
 }

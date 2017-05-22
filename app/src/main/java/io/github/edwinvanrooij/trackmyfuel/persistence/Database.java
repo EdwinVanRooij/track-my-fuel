@@ -30,6 +30,11 @@ public class Database {
         return db.delete(RecordContract.Record.TABLE_NAME, RecordContract.Record.COLUMN_RECORD_ID + "=" + record.getId(), null) > 0;
     }
 
+    public void removeEverything() {
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        mDbHelper.removeEverything(db);
+    }
+
     public void updateFromDb(Record record) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
@@ -59,6 +64,7 @@ public class Database {
 
         return newRecord;
     }
+
     public List<Record> getAllRecords() {
         List<Record> resultList = new ArrayList<>();
 

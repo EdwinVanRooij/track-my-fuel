@@ -28,4 +28,15 @@
     <string name="tv_liter_for_km_inside">Hoeveel liter kost het om 1 km te rijden in de bebouwde kom?</string>
     <string name="tv_liter_for_km_outside">Hoeveel liter kost het om 1 km te rijden buiten de bebouwde kom?</string>
     <string name="tv_price_for_liter">Hoeveel kost 1 liter?</string>
+    <string name="paid">Betaald</string>
+    <string name="me">Ik</string>
+    <string name="hint_paid"></string>
+    <string name="name">Henk...</string>
+    <string name="title_activity_add_payer">Betaler toevoegen</string>
+    <string name="reset_warning">Weet je zeker dat je al je ritten wilt verwijderen?</string>
+    <string name="reset">reset</string>
+    <string name="positive">ja</string>
+    <string name="ok">Ok</string>
+    <string name="negative">Nee</string>
+    <string name="btn_add">Toevoegen</string>
 </resources>

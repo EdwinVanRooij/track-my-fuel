@@ -9,15 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import io.github.edwinvanrooij.trackmyfuel.ConfirmDialog;
 import io.github.edwinvanrooij.trackmyfuel.DetailedRecordAdapter;
 import io.github.edwinvanrooij.trackmyfuel.R;
 import io.github.edwinvanrooij.trackmyfuel.Record;
 import io.github.edwinvanrooij.trackmyfuel.domain.FuelCalculator;
+import io.github.edwinvanrooij.trackmyfuel.interfaces.ReturnBoolean;
 import io.github.edwinvanrooij.trackmyfuel.persistence.Database;
 import me.evrooij.groceries.util.Extensions;
 
@@ -81,5 +86,15 @@ public class BillFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         return Extensions.inflate(container, R.layout.fragment_bill);
 
+    }
+
+    @OnClick(R.id.btn_reset)
+    void reset() {
+        ReturnBoolean r = result -> {
+            if (result) {
+                db.removeEverything();
+            }
+        };
+        new ConfirmDialog(getContext(), r).show(getResources().getString(R.string.reset_warning));
     }
 }

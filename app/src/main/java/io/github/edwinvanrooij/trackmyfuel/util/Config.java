@@ -8,6 +8,7 @@ public class Config {
 
     // Parcelable keys
     public static final String KEY_RECORD = "record";
+    public static final String KEY_PAYER = "payer";
 
     // Shared preferences keys
     public static final String PREF_KEY_LITER_FOR_KM_INSIDE  = "1";
