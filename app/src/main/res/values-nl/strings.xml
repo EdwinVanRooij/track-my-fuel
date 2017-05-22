@@ -10,4 +10,22 @@
     <string name="outside">Buiten</string>
     <string name="average">Gemiddeld</string>
     <string name="inside">Binnen</string>
+    <string name="title_activity_modify_record">Rit Aanpassen</string>
+    <string name="title_all_records">Alle Ritten</string>
+    <string name="title_bill">Rekening</string>
+    <string name="title_my_records">Mijn Ritten</string>
+    <string name="title_payment">Betaling</string>
+    <string name="title_settings">Instellingen</string>
+    <string name="update">Bijwerken</string>
+    <string name="nav_drawer_logout">Uitloggen</string>
+    <string name="nav_drawer_home">Home</string>
+    <string name="nav_drawer_group_functions">Functies</string>
+    <string name="delete">Verwijderen</string>
+    <string name="save">Opslaan</string>
+    <string name="total_title">Totaal</string>
+
+    <string name="tv_liter_for_km_average">Hoeveel liter kost gemiddeld het om 1 km te rijden?</string>
+    <string name="tv_liter_for_km_inside">Hoeveel liter kost het om 1 km te rijden in de bebouwde kom?</string>
+    <string name="tv_liter_for_km_outside">Hoeveel liter kost het om 1 km te rijden buiten de bebouwde kom?</string>
+    <string name="tv_price_for_liter">Hoeveel kost 1 liter?</string>
 </resources>

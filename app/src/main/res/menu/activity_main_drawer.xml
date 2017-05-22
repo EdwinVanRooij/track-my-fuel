@@ -11,10 +11,10 @@
 
     <item android:title="@string/nav_drawer_group_functions">
         <menu>
-            <item
-                android:id="@+id/nav_drawer_all_records"
-                android:checkable="true"
-                android:title="@string/title_all_records" />
+            <!--<item-->
+                <!--android:id="@+id/nav_drawer_all_records"-->
+                <!--android:checkable="true"-->
+                <!--android:title="@string/title_all_records" />-->
             <item
                 android:id="@+id/nav_drawer_bill"
                 android:checkable="true"
@@ -23,10 +23,10 @@
                 android:id="@+id/nav_drawer_payment"
                 android:checkable="true"
                 android:title="@string/title_payment" />
-            <item
-                android:id="@+id/nav_drawer_my_records"
-                android:checkable="true"
-                android:title="@string/title_my_records" />
+            <!--<item-->
+                <!--android:id="@+id/nav_drawer_my_records"-->
+                <!--android:checkable="true"-->
+                <!--android:title="@string/title_my_records" />-->
         </menu>
     </item>
 

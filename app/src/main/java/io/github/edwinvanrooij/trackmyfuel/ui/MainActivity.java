@@ -1,14 +1,10 @@
-package io.github.edwinvanrooij.trackmyfuel;
+package io.github.edwinvanrooij.trackmyfuel.ui;
 
-import android.content.ContentValues;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,31 +13,26 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnItemLongClick;
+import io.github.edwinvanrooij.trackmyfuel.R;
+import me.evrooij.groceries.interfaces.ContainerActivity;
 
 import static io.github.edwinvanrooij.trackmyfuel.util.Config.KEY_RECORD;
+import static io.github.edwinvanrooij.trackmyfuel.util.Config.THREADPOOL_MAINACTIVITY_SIZE;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ContainerActivity {
 
     public final static int MODIFY_RECORD = 1;
 
@@ -55,7 +46,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
 
-    Fragment mCurrentFragment;
+    BaseFragment mCurrentFragment;
+
+    private ExecutorService threadPool;
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         initNavigationDrawer();
 
+        threadPool = Executors.newFixedThreadPool(THREADPOOL_MAINACTIVITY_SIZE);
 
         setDefaultListFragment();
     }
@@ -75,9 +71,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setCheckedItem(R.id.nav_drawer_home);
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     public void setFragment(Class fragmentClass, boolean addToStack) {
         try {
-            Fragment fragment = (Fragment) fragmentClass.newInstance();
+            BaseFragment fragment = (BaseFragment) fragmentClass.newInstance();
 //            Bundle bundle = new Bundle();
 //            bundle.putParcelable(KEY_ACCOUNT, Parcels.wrap(thisAccount));
 //            fragment.setArguments(bundle);
@@ -147,30 +153,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id) {
             case R.id.nav_drawer_home:
-//                setDefaultListFragment();
-                Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+                setDefaultListFragment();
                 break;
-            case R.id.nav_drawer_all_records:
-                Toast.makeText(this, "All records", Toast.LENGTH_SHORT).show();
+//            case R.id.nav_drawer_all_records:
 //                setFragment(MyListsFragment.class, false);
-//                fab.show();
-                break;
+//                break;
             case R.id.nav_drawer_bill:
-//                setFragment(MyProductsFragment.class, false);
-//                fab.show();
+                setFragment(BillFragment.class, false);
                 break;
             case R.id.nav_drawer_payment:
-//                setFragment(FriendsFragment.class, false);
-//                fab.show();
+                setFragment(PaymentFragment.class, false);
                 break;
-            case R.id.nav_drawer_my_records:
+//            case R.id.nav_drawer_my_records:
 //                setFragment(SuggestionFragment.class, false);
-//                fab.hide();
-                break;
+//                break;
             case R.id.nav_drawer_settings:
-//                We don't need a fab in settings
-//                setFragment(SettingsFragment.class, false);
-//                fab.hide();
+                setFragment(SettingsFragment.class, false);
                 break;
             default:
                 Toast.makeText(this, "Could not determine which drawer item was clicked", Toast.LENGTH_SHORT).show();
@@ -181,43 +179,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCurrentFragment.onContainterActivityResult(requestCode, resultCode, data);
+    }
 
-        switch (requestCode) {
+    @Override
+    public void executeRunnable(@NotNull Runnable runnable) {
+        threadPool.execute(runnable);
+    }
 
-            case MODIFY_RECORD:
+    @Override
+    public void setActionBarTitle(@NotNull String title) {
+        runOnUiThread(() -> toolbar.setTitle(title));
+    }
 
-                switch (resultCode) {
-                    case RESULT_UPDATE: {
-
-                        Record record = Parcels.unwrap(data.getParcelableExtra(KEY_RECORD));
-
-                        MainFragment mainFragment = (MainFragment) mCurrentFragment;
-                        mainFragment.updateFromDb(record);
-                        mainFragment.refreshListview();
-
-                        Toast.makeText(this, String.format("Updated: %s", record.toString()), Toast.LENGTH_SHORT).show();
-
-                        break;
-                    }
-                    case RESULT_DELETE: {
-
-                        Record record = Parcels.unwrap(data.getParcelableExtra(KEY_RECORD));
-
-                        MainFragment mainFragment = (MainFragment) mCurrentFragment;
-                        mainFragment.deleteFromDb(record);
-                        mainFragment.refreshListview();
-
-                        Toast.makeText(this, String.format("Deleted: %s", record.toString()), Toast.LENGTH_SHORT).show();
-                        break;
-                    }
-                    default:
-                        Toast.makeText(this, String.format("Resultcode was %s, looking for %s", resultCode, RESULT_UPDATE), Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                break;
-            default:
-                Toast.makeText(this, String.format("Requestcode was %s, looking for %s", requestCode, MODIFY_RECORD), Toast.LENGTH_SHORT).show();
-                break;
-        }
+    @Override
+    public void startActivityForResult(@NotNull Object obj) {
+        startActivityForResult(new Intent(this, ModifyRecordActivity.class).putExtra(KEY_RECORD, Parcels.wrap(obj)), MainActivity.MODIFY_RECORD);
     }
 }

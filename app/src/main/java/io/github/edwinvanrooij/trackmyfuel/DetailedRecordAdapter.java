@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import io.github.edwinvanrooij.trackmyfuel.domain.FuelCalculator;
 import me.evrooij.groceries.util.Extensions;
 
 /**
@@ -16,9 +17,9 @@ import me.evrooij.groceries.util.Extensions;
  * Created on 5/16/17.
  */
 
-public class RecordAdapter extends ArrayAdapter<Record> {
+public class DetailedRecordAdapter extends ArrayAdapter<Record> {
 
-    public RecordAdapter(Context context, ArrayList<Record> items) {
+    public DetailedRecordAdapter(Context context, ArrayList<Record> items) {
         super(context, 0, items);
         ArrayList<Record> items1 = items;
     }
@@ -28,17 +29,24 @@ public class RecordAdapter extends ArrayAdapter<Record> {
         Record item = getItem(position);
 
         if (convertView == null) {
-            convertView = Extensions.inflate(parent, R.layout.record_row);
+            convertView = Extensions.inflate(parent, R.layout.record_row_detailed);
         }
 
         TextView tvKm = (TextView) convertView.findViewById(R.id.tv_km);
         TextView tvType = (TextView) convertView.findViewById(R.id.tv_type);
+        TextView tvTotalCosts = (TextView) convertView.findViewById(R.id.tv_total_costs);
 
         if (item != null) {
             tvKm.setText(String.format("%s km", item.getKm()));
             tvType.setText(item.getType().toString());
-        }
 
+            FuelCalculator calculator = new FuelCalculator(getContext());
+            try {
+                tvTotalCosts.setText(String.format("%s EUR", calculator.calculateRecord(item.getType(), item.getKm())));
+            } catch (Exception e) {
+                tvTotalCosts.setText("N.A.");
+            }
+        }
         return convertView;
     }
 

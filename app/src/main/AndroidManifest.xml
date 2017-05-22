@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -21,13 +21,13 @@
             </intent-filter>
             </activity>
         <activity
-            android:name=".ModifyRecordActivity"
+            android:name=".ui.ModifyRecordActivity"
             android:label="@string/title_activity_modify_record"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.edwinvanrooij.trackmyfuel.MainActivity" />
+                android:value="io.github.edwinvanrooij.trackmyfuel.ui.MainActivity" />
         </activity>
     </application>
 

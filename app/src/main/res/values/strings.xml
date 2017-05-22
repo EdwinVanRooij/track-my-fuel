@@ -45,5 +45,19 @@
     <string name="placeholder_desc" translatable="false">This is a description.</string>
     <string name="placeholder_paragraph" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius nisi, a mattis erat. Etiam sit amet orci et risus imperdiet vehicula vitae in sapien. Donec a tellus a odio laoreet elementum. Ut tempor sem ac viverra volutpat. Pellentesque efficitur, ipsum a suscipit elementum, leo ipsum aliquet dui, sit amet accumsan diam arcu et velit</string>
 
+    <string name="total_title">Total</string>
+
+    <string name="liter_for_km_inside" translatable="false">0.109</string>
+    <string name="liter_for_km_average" translatable="false">0.082</string>
+    <string name="liter_for_km_outside" translatable="false">0.067</string>
+    <string name="price_for_liter" translatable="false">1.30</string>
+    <string name="save">Save</string>
+
+    <string name="tv_liter_for_km_inside">How many liters does 1 km driving cost inside town?</string>
+    <string name="tv_liter_for_km_average">How many liters does 1 km driving cost on average?</string>
+    <string name="tv_liter_for_km_outside">How many liters does 1 km driving cost outside town?</string>
+
+    <string name="tv_price_for_liter">How much does one liter cost?</string>
+
 
 </resources>
