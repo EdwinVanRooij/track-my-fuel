@@ -30,7 +30,6 @@
     <string name="tv_price_for_liter">Hoeveel kost 1 liter?</string>
     <string name="paid">Betaald</string>
     <string name="me">Ik</string>
-    <string name="hint_paid"></string>
     <string name="name">Henk...</string>
     <string name="title_activity_add_payer">Betaler toevoegen</string>
     <string name="reset_warning">Weet je zeker dat je al je ritten wilt verwijderen?</string>
