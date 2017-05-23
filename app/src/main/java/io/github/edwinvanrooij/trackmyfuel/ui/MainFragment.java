@@ -110,7 +110,7 @@ public class MainFragment extends BaseFragment {
 
     @OnClick(R.id.btn_add)
     void add() {
-        int km = Integer.valueOf(total.getText().toString());
+        double km = Double.parseDouble(total.getText().toString());
 
         Record.Type type = null;
 

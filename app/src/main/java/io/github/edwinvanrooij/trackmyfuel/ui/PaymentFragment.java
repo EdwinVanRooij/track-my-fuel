@@ -97,7 +97,7 @@ public class PaymentFragment extends BaseFragment {
                     case MainActivity.RESULT_ADD: {
                         Payer payer = Parcels.unwrap(data.getParcelableExtra(KEY_PAYER));
                         mPayers.add(payer);
-                        Toast.makeText(mainActivity, String.format("Adding payer %s", payer.toString()), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mainActivity, String.format("Adding payer %s", payer.toString()), Toast.LENGTH_SHORT).show();
                         refreshListview();
                         break;
                     }

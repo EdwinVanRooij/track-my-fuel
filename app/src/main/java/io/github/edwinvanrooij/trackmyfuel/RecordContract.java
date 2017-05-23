@@ -18,7 +18,7 @@ public final class RecordContract {
         public static final String SQL_CREATE_ENTRIES =
                 "CREATE TABLE " + Record.TABLE_NAME + " (" +
                         Record.COLUMN_RECORD_ID + " INTEGER PRIMARY KEY," +
-                        Record.COLUMN_RECORD_KM + " INTEGER," +
+                        Record.COLUMN_RECORD_KM + " REAL," +
                         Record.COLUMN_RECORD_TYPE + " INTEGER)";
 
         public static final String SQL_DELETE_ENTRIES =

@@ -9,43 +9,43 @@ import org.parceler.Parcel;
 @Parcel
 public class Record {
     private int id;
-    private int km;
+    private double km;
     private Type type;
 
-    public long getId() {
+    public int getId() {
         return id;
-    }
-
-    public int getKm() {
-        return km;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setKm(int km) {
-        this.km = km;
+    public double getKm() {
+        return km;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setKm(double km) {
+        this.km = km;
     }
 
     public Type getType() {
         return type;
     }
 
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     public Record() {
     }
 
-    public Record(int km, Type type) {
+    public Record(int id, double km, Type type) {
+        this.id = id;
         this.km = km;
         this.type = type;
     }
 
-    public Record(int id, int km, Type type) {
-        this.id = id;
+    public Record(double km, Type type) {
         this.km = km;
         this.type = type;
     }

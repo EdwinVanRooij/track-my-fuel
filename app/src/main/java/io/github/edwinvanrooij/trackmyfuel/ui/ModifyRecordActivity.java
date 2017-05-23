@@ -50,7 +50,7 @@ public class ModifyRecordActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRecord = Parcels.unwrap(getIntent().getParcelableExtra(KEY_RECORD));
-        mTotal.setText(Integer.toString(mRecord.getKm()));
+        mTotal.setText(String.valueOf(mRecord.getKm()));
 
         initSpinner();
 
@@ -91,7 +91,7 @@ public class ModifyRecordActivity extends AppCompatActivity {
     void update() {
         Intent returnIntent = new Intent();
 
-        mRecord.setKm(Integer.valueOf(mTotal.getText().toString()));
+        mRecord.setKm(Double.valueOf(mTotal.getText().toString()));
 
         String spinnerSelection = mSpinner.getSelectedItem().toString();
         if (Objects.equals(spinnerSelection, inside)) {
